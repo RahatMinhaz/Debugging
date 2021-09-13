@@ -20,8 +20,8 @@ const showProducts = (products) => {
       <h5>Average Rating: ${product.rating.rate}</h5>
       <h5>${product.rating.count} People rated this product</h5>
       <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-warning">add to cart</button>
-      <button id="details-btn" class="btn btn-info">Details</button></div>
+      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-danger">add to cart</button>
+      <button id="details-btn" class="btn btn-dark">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -47,17 +47,21 @@ const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
   const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = total.toFixed(2); //Math.round(total); 
+  document.getElementById(id).innerText = total.toFixed(2); 
 };
 
 // set innerText function
 const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = value.toFixed(2);//Math.round(value);
+  document.getElementById(id).innerText = value.toFixed(2);
 };
 
 // update delivery charge and total Tax
 const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
+  if (priceConverted > 0){
+    setInnerText("delivery-charge", 20);
+    setInnerText("total-tax", priceConverted * 0);
+  }
   if (priceConverted > 200) {
     setInnerText("delivery-charge", 30);
     setInnerText("total-tax", priceConverted * 0.2);
